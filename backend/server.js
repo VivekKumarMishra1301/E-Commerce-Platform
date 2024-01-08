@@ -8,7 +8,7 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
-app.use('/api/v1/auth/login', authRoute);
+app.use('/api/v1/auth', authRoute);
 
 
 
