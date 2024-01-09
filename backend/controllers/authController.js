@@ -68,7 +68,8 @@ export const loginController = asyncHandler(async (req, res) => {
                 name: user.name,
                 email: user.email,
                 phone: user.phone,
-                address: user.address
+                address: user.address,
+                role:user.role
             },
             token,
         });
@@ -77,6 +78,36 @@ export const loginController = asyncHandler(async (req, res) => {
         res.status(500).send({
             success: false,
             message: 'error in login',
+            error: error,
+        })
+    }
+});
+export const forgotPasswordController = asyncHandler(async (req, res) => {
+    try {
+        const{email,question,newPassword} = req.body
+        if (!email || !question || !newPassword) {
+                        return res.send({ error: 'Enter every Field Details' });
+
+        }
+        const user = await userModel.findOne({ email, question });
+        if (!user) {
+            return res.status(404).send({
+                success: false,
+                message: 'Email is not registered',
+                error: error,
+            });
+        }
+        const hashed = await hashPassword(newPassword);
+        await userModel.findByIdAndUpdate(user._id,{password:hashed})
+        res.status(200).send({
+            success: true,
+            message: 'Password Reset Successfully'
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Something went Wrong',
             error: error,
         })
     }
