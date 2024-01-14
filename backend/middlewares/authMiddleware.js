@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import userModel from '../models/userModel.js';
 export const protect = async (req, res, next) => {
     try {
-        console.log(req.headers)
+        // console.log(req.headers)
         const decode = await jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
         req.user = decode;
         next();
@@ -19,7 +19,7 @@ export const protect = async (req, res, next) => {
 export const isAdmin = async (req, res, next) => {
     try {
         const user = await userModel.findById(req.user._id);
-        console.log(user)
+        // console.log(user)
         if (user.role !== 1) {
             return res.status(401).send({
                 success: false,

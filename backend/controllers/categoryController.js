@@ -4,6 +4,7 @@ import slugify from "slugify";
 
 export const createCategoryController = asyncHandler(async (req, res) => {
     try {
+        console.log(req.body);
         const { name } = req.body;
         if (!name) {
             return res.status(401).send({ message: 'Name is required' });
