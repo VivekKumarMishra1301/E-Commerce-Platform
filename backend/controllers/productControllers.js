@@ -5,7 +5,7 @@ import slugify from "slugify";
 
 export const createProduct = asyncHandler(async (req, res) => {
     try {
-        console.log('hhh')
+        console.log(req.body)
         const { name, slug, description, price, category, quantity, shipping,photo } = req.body;
         // const { photo } = req.files;
          switch (true) {

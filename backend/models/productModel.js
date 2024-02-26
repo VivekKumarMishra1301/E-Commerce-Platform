@@ -32,7 +32,7 @@ const productSchema = new mongoose.Schema({
         "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
     shipping: {
-        type:Boolean
+        type:String
     },
 
 },{timestamps:true});
