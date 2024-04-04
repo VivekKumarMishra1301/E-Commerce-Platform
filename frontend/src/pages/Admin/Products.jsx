@@ -4,9 +4,12 @@ import AdminMenu from '../../components/layouts/AdminMenu';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/auth';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
+    const [auth setAuth] = useAuth();
+    const[categories, setCategories] = useState([]);
 
     const getAllProducts = async () => {
         try {
