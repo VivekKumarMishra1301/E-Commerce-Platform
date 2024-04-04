@@ -60,7 +60,8 @@ export const getProducts = asyncHandler(async (req, res) => {
   }
 });
 export const getSingleProduct = asyncHandler(async (req, res) => {
-   try {
+  try {
+    console.log('hello');
     const products = await productModel.findOne({slug:req.params.slug}).populate('category').limit(12).sort({ createdAt: -1 });
   res.status(201).send({
       success: true,
@@ -100,25 +101,25 @@ export const deleteProduct = asyncHandler(async (req, res) => {
 
 export const updateProduct = asyncHandler(async (req, res) => {
     try {
-        console.log('hhh')
-        const { name, slug, description, price, category, quantity, shipping,photo } = req.body;
-        // const { photo } = req.files;
-         switch (true) {
-      case !name:
-        return res.status(500).send({ error: "Name is Required" });
-      case !description:
-        return res.status(500).send({ error: "Description is Required" });
-      case !price:
-        return res.status(500).send({ error: "Price is Required" });
+      const { name, slug, description, price, category, quantity, shipping,photo } = req.body;
+      // const { photo } = req.files;
+      switch (true) {
+        case !name:
+          return res.status(400).send({ error: "Name is Required" });
+          case !description:
+            return res.status(400).send({ error: "Description is Required" });
+            case !price:
+              return res.status(400).send({ error: "Price is Required" });
       case !category:
-        return res.status(500).send({ error: "Category is Required" });
-      case !quantity:
-        return res.status(500).send({ error: "Quantity is Required" });
-    //   case photo && photo.size > 1000000:
-    //     return res
-    //       .status(500)
-    //       .send({ error: "photo is Required and should be less then 1mb" });
-    }
+        return res.status(400).send({ error: "Category is Required" });
+        case !quantity:
+          return res.status(400).send({ error: "Quantity is Required" });
+          //   case photo && photo.size > 1000000:
+          //     return res
+          //       .status(500)
+          //       .send({ error: "photo is Required and should be less then 1mb" });
+        }
+        console.log('hhh')
 
     const products = await productModel.findByIdAndUpdate(req.params.id,{ name,slug: slugify(name),description,price,category,quantity,shipping,photo},{new:true});
   

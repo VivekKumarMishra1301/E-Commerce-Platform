@@ -54,7 +54,7 @@ export const loginController = asyncHandler(async (req, res) => {
            return res.status(404).send({
                 success: false,
                 message: 'Incorrect Password',
-                error: error,
+                // error: error,
             });
         }
         // Token Creation
